@@ -1,0 +1,55 @@
+<div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2>Login</h2>
+      <div class="form-control">
+        <mat-form-field>
+          <mat-label for="email">Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            type="email"
+            id="email"
+            name="email"
+          />
+          @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched ) {
+          <mat-error>Email is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="form-control">
+        <mat-form-field>
+          <mat-label for="password">Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hide ? 'password' : 'text'"
+            id="password"
+            name="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          @if (loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched ) {
+          <mat-error>Password is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      @if (errorMessage) {
+        <mat-error>{{ errorMessage }}</mat-error>
+      }
+      <button mat-flat-button color="primary" type="submit" class="btn" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </form>
+    <div class="login-link">
+      <p>Dont't have Account? <a routerLink="/register">Register here</a></p>
+    </div>
+  </div>
+  
